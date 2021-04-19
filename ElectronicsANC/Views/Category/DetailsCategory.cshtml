@@ -1,0 +1,35 @@
+﻿@model ElectronicsANC.Models.CategoryModel
+
+@{
+    ViewBag.Title = "DetailsCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DetailsCategory</h2>
+
+<div>
+    <h4>CategoryModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdCategory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdCategory }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

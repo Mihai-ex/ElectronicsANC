@@ -1,0 +1,51 @@
+﻿@model ElectronicsANC.Models.CartModel
+
+@{
+    ViewBag.Title = "DetailsCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DetailsCart</h2>
+
+<div>
+    <h4>CartModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdCart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdCart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdShoppingCart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdShoppingCart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdMember)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdMember)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdCart }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

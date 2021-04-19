@@ -29,6 +29,7 @@ namespace ElectronicsANC.Controllers
         }
 
         // GET: Member/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View("CreateMember");
@@ -36,6 +37,7 @@ namespace ElectronicsANC.Controllers
 
         // POST: Member/Create
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(FormCollection collection)
         {
             try
@@ -54,6 +56,7 @@ namespace ElectronicsANC.Controllers
         }
 
         // GET: Member/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(Guid id)
         {
             MemberModel memberModel = _memberRepository.GetMemberById(id);
@@ -63,6 +66,7 @@ namespace ElectronicsANC.Controllers
 
         // POST: Member/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(Guid id, FormCollection collection)
         {
             try
@@ -81,6 +85,7 @@ namespace ElectronicsANC.Controllers
         }
 
         // GET: Member/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(Guid id)
         {
             MemberModel memberModel = _memberRepository.GetMemberById(id);
@@ -90,6 +95,7 @@ namespace ElectronicsANC.Controllers
 
         // POST: Member/Delete/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(Guid id, FormCollection collection)
         {
             try

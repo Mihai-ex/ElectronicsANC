@@ -182,11 +182,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\MotherboardController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -294,6 +299,27 @@
     <Content Include="Views\Product\CreateProduct.cshtml" />
     <Content Include="Views\Product\EditProduct.cshtml" />
     <Content Include="Views\Product\DeleteProduct.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\DetailsCart.cshtml" />
+    <Content Include="Views\Cart\CreateCart.cshtml" />
+    <Content Include="Views\Cart\EditCart.cshtml" />
+    <Content Include="Views\Cart\DeleteCart.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\DetailsOrder.cshtml" />
+    <Content Include="Views\Order\CreateOrder.cshtml" />
+    <Content Include="Views\Order\EditOrder.cshtml" />
+    <Content Include="Views\Order\DeleteOrder.cshtml" />
+    <Content Include="Views\Review\Index.cshtml" />
+    <Content Include="Views\Review\DetailsReview.cshtml" />
+    <Content Include="Views\Review\CreateReview.cshtml" />
+    <Content Include="Views\Review\EditReview.cshtml" />
+    <Content Include="Views\Review\DeleteReview.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\DetailsShoppingCart.cshtml" />
+    <Content Include="Views\ShoppingCart\CreateShoppingCart.cshtml" />
+    <Content Include="Views\ShoppingCart\EditShoppingCart.cshtml" />
+    <Content Include="Views\ShoppingCart\DeleteShoppingCart.cshtml" />
+    <Content Include="Views\Motherboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

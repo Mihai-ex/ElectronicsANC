@@ -35,6 +35,7 @@ namespace ElectronicsANC.Controllers
         }
 
         // POST: Category/Create
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {

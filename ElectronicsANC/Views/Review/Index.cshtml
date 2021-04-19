@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ElectronicsANC.Models.ReviewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdReview)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdMember)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdProduct)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReviewDetails)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReviewDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdReview)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdMember)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdProduct)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReviewDetails)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReviewDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.IdReview }) |
+            @Html.ActionLink("Details", "Details", new { id = item.IdReview }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.IdReview })
+        </td>
+    </tr>
+}
+
+</table>

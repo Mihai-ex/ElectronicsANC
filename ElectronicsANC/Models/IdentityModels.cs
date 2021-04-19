@@ -21,7 +21,7 @@ namespace ElectronicsANC.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("ElectronicsShopDbConnectionString", throwIfV1Schema: false)
         {
         }
 

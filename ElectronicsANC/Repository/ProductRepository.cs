@@ -31,6 +31,17 @@ namespace ElectronicsANC.Repository
             return productList;
         }
 
+        public List<ProductModel> GetAllProductsByCategoryId(Guid id)
+        {
+            List<ProductModel> productList = new List<ProductModel>();
+
+            foreach (Product dbProduct in dbContext.Products)
+                if (dbProduct.IdCategory == id)
+                    AddDbObjectToModelCollection(productList, dbProduct);
+
+            return productList;
+        }
+
         public ProductModel GetProdctById(Guid id)
         {
             var product = dbContext.Products.FirstOrDefault(x => x.IdProduct == id);

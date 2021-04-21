@@ -56,16 +56,16 @@ namespace ElectronicsANC.Repository
             return MapDbObjectToModel(product);
         }
 
-        public List<ProductModel> GetProductsByName(string name)
-        {
-            List<ProductModel> productList = new List<ProductModel>();
+        //public List<ProductModel> GetProductsByName(string name)
+        //{
+        //    List<ProductModel> productList = new List<ProductModel>();
 
-            foreach (Product dbProduct in dbContext.Products)
-                if(dbProduct.ProductName.Equals(name))
-                    AddDbObjectToModelCollection(productList, dbProduct);
+        //    foreach (Product dbProduct in dbContext.Products)
+        //        if(dbProduct.ProductName.Equals(name))
+        //            AddDbObjectToModelCollection(productList, dbProduct);
 
-            return productList;
-        }
+        //    return productList;
+        //}
 
         public List<ProductModel> GetProductsByManufacturer(string manufacturer)
         {
@@ -98,6 +98,53 @@ namespace ElectronicsANC.Repository
                     AddDbObjectToModelCollection(productList, dbProduct);
 
             return productList;
+        }
+
+        public List<ProductModel> OrderByDescendingParameterWithID(List<ProductModel> models, string parameter, Guid id)
+        {
+            if(parameter == "Name")            
+                return models.OrderByDescending(x => x.ProductName).ToList();
+
+            if (parameter == "Manufacturer")
+                return models.OrderByDescending(x => x.Manufacturer).ToList();
+
+            if (parameter == "Price")
+                return models.OrderByDescending(x => x.Price).ToList();
+
+            if (parameter == "Warranty")
+                return models.OrderByDescending(x => x.Warranty).ToList();
+
+            if (parameter == "Rating")
+                return models.OrderByDescending(x => x.Rating).ToList();
+
+            return models;
+        }
+
+        public List<ProductModel> OrderByAscendingParameterWithID(List<ProductModel> models, string parameter, Guid id)
+        {
+            if (parameter == "Name")
+                return models.OrderBy(x => x.ProductName).ToList();
+
+            if (parameter == "Manufacturer")
+                return models.OrderBy(x => x.Manufacturer).ToList();
+
+            if (parameter == "Price")
+                return models.OrderBy(x => x.Price).ToList();
+
+            if (parameter == "Warranty")
+                return models.OrderBy(x => x.Warranty).ToList();
+
+            if (parameter == "Rating")
+                return models.OrderBy(x => x.Rating).ToList();
+
+            return models;
+        }
+
+        public void SaveFilter(List<ProductModel> models, string filter)
+        {
+            foreach (var model in models)
+                if (string.IsNullOrEmpty(model.Filter))
+                    model.Filter = filter;
         }
 
         public void InsertProduct(ProductModel product)

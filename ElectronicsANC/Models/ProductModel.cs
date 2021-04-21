@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ElectronicsANC.Models
 {
@@ -21,7 +23,11 @@ namespace ElectronicsANC.Models
         [Required(ErrorMessage = "Mandatory field")]
         public decimal Price { get; set; }
         [Required(ErrorMessage = "Mandatory field")]
+        [Range(1, 24)]
         public int Warranty { get; set; }
+        [Range(0, 5)]
         public int? Rating { get; set; }
+        [NotMapped]
+        public string Filter { get; set; }
     }
 }

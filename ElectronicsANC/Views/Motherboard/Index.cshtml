@@ -8,45 +8,45 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New Motherboard", "Create")
+    @*@Html.ActionLink("Create New Motherboard", "Create")*@
+    @using(Html.BeginForm())
+    {
+        <p>
+            Filter by Manufacturer:@Html.TextBox("Filter")            
+            <input type="submit" value="Filter" />            
+        </p>
+    }
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.IdProduct)
+            @Html.ActionLink("Product Name", "Index", new { sortOrder = ViewBag.NameSortParam })           
+            @*@Html.DisplayNameFor(model => model.ProductName)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IdCategory)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Manufacturer)
+            @Html.ActionLink("Manufacturer", "Index", new { sortOrder = ViewBag.ManufacturerSortParam })
+            @*@Html.DisplayNameFor(model => model.Manufacturer)*@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.ActionLink("Price", "Index", new { sortOrder = ViewBag.PriceSortParam })
+            @*@Html.DisplayNameFor(model => model.Price)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Warranty)
+            @Html.ActionLink("Warranty", "Index", new { sortOrder = ViewBag.WarrantySortParam })
+            @*@Html.DisplayNameFor(model => model.Warranty)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rating)
+            @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParam })
+            @*@Html.DisplayNameFor(model => model.Rating)*@
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdProduct)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdCategory)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProductName)
         </td>
@@ -66,9 +66,8 @@
             @Html.DisplayFor(modelItem => item.Rating)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.IdProduct }) |
-            @Html.ActionLink("Details", "Details", new { id = item.IdProduct }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.IdProduct })
+            @Html.ActionLink("Details", "Details", new { id = item.IdProduct })
+            @*@Html.ActionLink("Review", "", new { id = item.IdProduct })*@
         </td>
     </tr>
 }

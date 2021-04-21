@@ -13,83 +13,90 @@ namespace ElectronicsANC.Controllers
         private ProductRepository _productRepository = new ProductRepository();
 
         // GET: Motherboard
-        public ActionResult Index(Guid id)
+        public ActionResult Index(string sortOrder, string filter)
         {
+            Guid id = new Guid("c9ff7c9f-21bd-44f9-a188-b391cbf9d35a");
             List<ProductModel> productModels = _productRepository.GetAllProductsByCategoryId(id);
+
+            ViewBag.NameSortParam = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.ManufacturerSortParam = sortOrder == "manufacturer" ? "manufacturer_desc" : "manufacturer";
+            ViewBag.PriceSortParam = sortOrder == "price" ? "price_desc" : "price";
+            ViewBag.WarrantySortParam = sortOrder == "warranty" ? "warranty_desc" : "warranty";
+            ViewBag.RatingSortParam = sortOrder == "rating" ? "rating_desc" : "rating";
+
+            productModels = FilterProducts(filter, id, productModels);
+            productModels = SortProducts(productModels, sortOrder, id);
 
             return View("Index", productModels);
         }
 
+        private List<ProductModel> FilterProducts(string filter, Guid id, List<ProductModel> productModels)
+        {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                switch (filter)
+                {
+                    case "MSI":
+                        productModels = _productRepository.GetProductsByManufacturer(filter);
+                        break;
+                    case "Asus":
+                        productModels = _productRepository.GetProductsByManufacturer(filter);
+                        break;
+                    case "ASRock":
+                        productModels = _productRepository.GetProductsByManufacturer(filter);
+                        break;
+                    case "Gigabyte":
+                        productModels = _productRepository.GetProductsByManufacturer(filter);
+                        break;
+                    default:
+                        productModels = _productRepository.GetAllProductsByCategoryId(id);
+                        break;
+                }
+
+                //_productRepository.SaveFilter(productModels, filter);
+            }
+
+            return productModels;
+        }
+
+        private List<ProductModel> SortProducts(List<ProductModel> temp, string sortOrder, Guid id)
+        {
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    return _productRepository.OrderByDescendingParameterWithID(temp, "Name", id);
+                case "manufacturer_desc":
+                    return _productRepository.OrderByDescendingParameterWithID(temp, "Manufacturer", id);
+                case "price_desc":
+                    return _productRepository.OrderByDescendingParameterWithID(temp, "Price", id);
+                case "warranty_desc":
+                    return _productRepository.OrderByDescendingParameterWithID(temp, "Warranty", id);
+                case "rating_desc":
+                    return _productRepository.OrderByDescendingParameterWithID(temp, "Rating", id);
+                case "manufacturer":
+                    return _productRepository.OrderByAscendingParameterWithID(temp, "Manufacturer", id);
+                case "price":
+                    return _productRepository.OrderByAscendingParameterWithID(temp, "Price", id);
+                case "warranty":
+                    return _productRepository.OrderByAscendingParameterWithID(temp, "Warranty", id);
+                case "rating":
+                    return _productRepository.OrderByAscendingParameterWithID(temp, "Rating", id);
+                default:
+                    return _productRepository.OrderByAscendingParameterWithID(temp, "Name", id);
+            }
+        }
+
         // GET: Motherboard/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(Guid id)
         {
-            return View();
+            ProductModel productModel = _productRepository.GetProdctById(id);
+
+            return View("DetailsMotherboard", productModel);
         }
 
-        // GET: Motherboard/Create
-        public ActionResult Create()
+        public ActionResult AddToCart()
         {
-            return View();
-        }
-
-        // POST: Motherboard/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Motherboard/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Motherboard/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Motherboard/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Motherboard/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View("CreateToCart");
         }
     }
 }

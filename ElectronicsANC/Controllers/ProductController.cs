@@ -11,6 +11,7 @@ namespace ElectronicsANC.Controllers
     public class ProductController : Controller
     {
         private ProductRepository _productRepository = new ProductRepository();
+        CategoryRepository _categoryRepository = new CategoryRepository();
 
         // GET: Product
         public ActionResult Index()
@@ -33,6 +34,12 @@ namespace ElectronicsANC.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
+            var items = _categoryRepository.GetAllCategories();
+            if (items != null)
+            {
+                ViewBag.data = items;
+            }
+
             return View("CreateProduct");
         }
 
@@ -44,6 +51,7 @@ namespace ElectronicsANC.Controllers
             try
             {
                 ProductModel productModel = new ProductModel();
+                productModel.IdCategory =  Guid.Parse(Request.Form["Category"]);
                 UpdateModel(productModel);
 
                 _productRepository.InsertProduct(productModel);

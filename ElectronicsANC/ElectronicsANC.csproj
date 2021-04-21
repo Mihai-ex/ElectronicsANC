@@ -183,15 +183,22 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CPUController.cs" />
+    <Compile Include="Controllers\CPUCoolerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\MemoryController.cs" />
     <Compile Include="Controllers\MotherboardController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PowerSupplyController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
+    <Compile Include="Controllers\StorageController.cs" />
+    <Compile Include="Controllers\VideoCardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -320,6 +327,21 @@
     <Content Include="Views\ShoppingCart\EditShoppingCart.cshtml" />
     <Content Include="Views\ShoppingCart\DeleteShoppingCart.cshtml" />
     <Content Include="Views\Motherboard\Index.cshtml" />
+    <Content Include="Views\CPU\Index.cshtml" />
+    <Content Include="Views\Memory\Index.cshtml" />
+    <Content Include="Views\Storage\Index.cshtml" />
+    <Content Include="Views\VideoCard\Index.cshtml" />
+    <Content Include="Views\PowerSupply\Index.cshtml" />
+    <Content Include="Views\CPUCooler\Index.cshtml" />
+    <Content Include="Views\Case\Index.cshtml" />
+    <Content Include="Views\Case\DetailsCase.cshtml" />
+    <Content Include="Views\VideoCard\DetailsVideoCard.cshtml" />
+    <Content Include="Views\Storage\DetailsStorage.cshtml" />
+    <Content Include="Views\Memory\DetailsMemory.cshtml" />
+    <Content Include="Views\CPU\DetailsCPU.cshtml" />
+    <Content Include="Views\PowerSupply\DetailsPowerSupply.cshtml" />
+    <Content Include="Views\CPUCooler\DetailsCPUCooler.cshtml" />
+    <Content Include="Views\Motherboard\DetailsMotherboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

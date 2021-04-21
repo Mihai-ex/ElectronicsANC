@@ -23,30 +23,45 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
 
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Admin Tools
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">@Html.ActionLink("Members", "Index", "Member")</a></li>
+                                    <li><a href="#">@Html.ActionLink("Categories", "Index", "Category")</a></li>
+                                    <li><a href="#">@Html.ActionLink("Products", "Index", "Product")</a></li>
+                                    <li><a href="#">@Html.ActionLink("Carts", "Index", "Cart")</a></li>
+                                    <li><a href="#">@Html.ActionLink("Orders", "Index", "Order")</a></li>
+                                    <li><a href="#">@Html.ActionLink("Reviews", "Index", "Review")</a></li>
+                                    <li><a href="#">@Html.ActionLink("ShoppingCarts", "Index", "ShoppingCart")</a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             Categories
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a href="#">@Html.ActionLink("CPU", "Index", "CPU")</a></li>
+                            <li><a href="#">@Html.ActionLink("CPU Cooler", "Index", "CPUCooler")</a></li>
                             <li><a href="#">@Html.ActionLink("Motherboard", "Index", "Motherboard")</a></li>
-                            <li><a href="#">@Html.ActionLink("Category(Base)", "Index", "Category")</a></li>
-                            <li><a href="#">@Html.ActionLink("Motherboard", "Index", "Motherboard")</a></li>
-                            <li><a href="#">@Html.ActionLink("CPU", "Contact", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("Memory", "Index", "Memory")</a></li>
+                            <li><a href="#">@Html.ActionLink("Storage", "Index", "Storage")</a></li>
+                            <li><a href="#">@Html.ActionLink("Video Card", "Index", "VideoCard")</a></li>
+                            <li><a href="#">@Html.ActionLink("Power Supply", "Index", "PowerSupply")</a></li>
+                            <li><a href="#">@Html.ActionLink("Case", "Index", "Case")</a></li>
                         </ul>
                     </li>
 
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        if (User.IsInRole("Admin"))
-                        {
-                            <li>@Html.ActionLink("View Members", "Index", "Member")</li>
-                            <li>@Html.ActionLink("Cart", "Index", "Cart")</li>
-                            <li>@Html.ActionLink("Order", "Index", "Order")</li>
-                            <li>@Html.ActionLink("Reviews", "Index", "Review")</li>
-                            <li>@Html.ActionLink("ShoppingCart", "Index", "ShoppingCart")</li>
-                        }
-                    }
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>

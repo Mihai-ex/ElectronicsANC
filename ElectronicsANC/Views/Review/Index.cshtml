@@ -45,7 +45,8 @@
             @Html.DisplayFor(modelItem => item.ReviewDetails)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ReviewDate)
+            <span>@Convert.ToDateTime(item.ReviewDate).ToString("dd-MM-yyyy")</span>
+            @*@Html.DisplayFor(modelItem => item.ReviewDate)*@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.IdReview }) |

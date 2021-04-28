@@ -15,6 +15,35 @@
         <h4>ReviewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+         <div class="form-group">
+            @Html.LabelFor(model => model.IdMember, htmlAttributes: new { @class = "control-label col-md-2" })
+             <div class="col-md-10">
+                 @Html.DropDownList("Member", new SelectList(ViewBag.members, "IdMember", "Name"))
+             </div>
+        </div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.IdProduct, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if(User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+                {
+                    @Html.EditorFor(model => model.IdProduct, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                    @Html.ValidationMessageFor(model => model.IdProduct, "", new { @class = "text-danger" })
+                }
+                else if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    if(ViewBag.products == null)
+                    {
+                        @Html.EditorFor(model => model.IdProduct, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.IdProduct, "", new { @class = "text-danger" })
+                    }
+                    else
+                    {
+                        @Html.DropDownList("ProductsToReview", new SelectList(ViewBag.products, "IdProduct", "ProductName"))
+                    }
+                }
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ReviewDetails, htmlAttributes: new { @class = "control-label col-md-2" })

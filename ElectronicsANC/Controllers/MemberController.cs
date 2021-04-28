@@ -29,7 +29,6 @@ namespace ElectronicsANC.Controllers
         }
 
         // GET: Member/Create
-        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View("CreateMember");
@@ -37,7 +36,6 @@ namespace ElectronicsANC.Controllers
 
         // POST: Member/Create
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public ActionResult Create(FormCollection collection)
         {
             try
@@ -47,7 +45,13 @@ namespace ElectronicsANC.Controllers
 
                 _memberRepository.InsertMember(memberModel);
 
-                return RedirectToAction("Index");
+                if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("Admin"))
+                        return RedirectToAction("Index");
+                }
+
+                return Redirect("~/");
             }
             catch
             {

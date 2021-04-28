@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DetailsCase</h2>
+<h2>Case Details</h2>
 
 <div>
-    <h4>ProductModel</h4>
+    <h4>Product Model</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -62,7 +62,16 @@
     </dl>
 </div>
 <p>
-    <a class="btn btn-primary" href="@Url.Action("AddToCart", "Cart")">Add To Cart</a> |
-    <a class="btn btn-primary" href="@Url.Action("WriteReview", "Review")">Write Review</a>
+    @using (Html.BeginForm("Create", "ShoppingCart"))
+    {
+        @Html.Hidden("IdProduct", Model.IdProduct) 
+        @Html.Hidden("Price", Model.Price)
+        <input type="submit" value="Add To Cart" />
+    } |
+    @using (Html.BeginForm("Create", "Review"))
+    {
+        @Html.Hidden("IdProduct", Model.IdProduct) <input type="submit" value="Write Review" />
+    } |
+    @*<a class="btn btn-primary" href="@Url.Action("Create", "Review")">Write Review</a> |*@
     @Html.ActionLink("Back to List", "Index")
 </p>

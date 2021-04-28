@@ -60,36 +60,6 @@ namespace ElectronicsANC.Repository
             return orderList;
         }
 
-        /*public List<OrderModel> GetOrdersByPrice(int type, decimal price)
-        {
-            List<OrderModel> orderList = new List<OrderModel>();
-
-            foreach (Order dbOrder in dbContext.Orders)
-            {
-                switch (type)
-                {
-                    case 0:
-                        if (dbOrder.Price <= price)
-                            AddDbObjectToModelCollection(orderList, dbOrder);
-                        break;
-                    case 1:
-                        if (dbOrder.Price == price)
-                            AddDbObjectToModelCollection(orderList, dbOrder);
-                        break;
-                    case 2:
-                        if (dbOrder.Price >= price)
-                            AddDbObjectToModelCollection(orderList, dbOrder);
-                        break;
-                    default:
-                        if (dbOrder.Price == price)
-                            AddDbObjectToModelCollection(orderList, dbOrder);
-                        break;
-                }
-            }
-
-            return orderList;
-        }*/
-
         public List<OrderModel> GetOrdersByPrice(decimal price)
         {
             List<OrderModel> orderList = new List<OrderModel>();
@@ -99,6 +69,33 @@ namespace ElectronicsANC.Repository
                     AddDbObjectToModelCollection(orderList, dbOrder);
 
             return orderList;
+        }
+
+        public List<OrderModel> OrderByDescendingParameter(List<OrderModel> models, string parameter)
+        {
+            if (parameter == "Date")
+                return models.OrderByDescending(x => x.DateOrder).ToList();
+
+            if (parameter == "Price")
+                return models.OrderByDescending(x => x.Price).ToList();
+
+            if (parameter == "Quantity")
+                return models.OrderByDescending(x => x.Quantity).ToList();
+
+            return models;
+        }
+        public List<OrderModel> OrderByAscendingParameter(List<OrderModel> models, string parameter)
+        {
+            if (parameter == "Date")
+                return models.OrderBy(x => x.DateOrder).ToList();
+
+            if (parameter == "Price")
+                return models.OrderBy(x => x.Price).ToList();
+
+            if (parameter == "Quantity")
+                return models.OrderBy(x => x.Quantity).ToList();
+
+            return models;
         }
 
         public void InsertOrder(OrderModel order)
@@ -168,7 +165,8 @@ namespace ElectronicsANC.Repository
                 dbOrder.IdProduct = order.IdProduct;
                 dbOrder.DateOrder = order.DateOrder;
                 dbOrder.Quantity = order.Quantity;
-                dbOrder.Price = order.Price;
+                var finalPrice = order.Price * order.Quantity;
+                dbOrder.Price = finalPrice;
 
                 return dbOrder;
             }

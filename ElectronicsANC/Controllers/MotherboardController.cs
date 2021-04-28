@@ -52,8 +52,6 @@ namespace ElectronicsANC.Controllers
                         productModels = _productRepository.GetAllProductsByCategoryId(id);
                         break;
                 }
-
-                //_productRepository.SaveFilter(productModels, filter);
             }
 
             return productModels;
@@ -94,9 +92,28 @@ namespace ElectronicsANC.Controllers
             return View("DetailsMotherboard", productModel);
         }
 
-        public ActionResult AddToCart()
-        {
-            return View("CreateToCart");
-        }
+        //public ActionResult Create()
+        //{
+        //    return View("CreateToCart");
+        //}
+
+        //[HttpPost]
+        //public ActionResult Create(FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        ProductModel productModel = new ProductModel();
+        //        productModel.IdCategory = Guid.Parse(Request.Form["Category"]);
+        //        UpdateModel(productModel);
+
+        //        _productRepository.InsertProduct(productModel);
+
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View("CreateToCart");
+        //    }
+        //}
     }
 }

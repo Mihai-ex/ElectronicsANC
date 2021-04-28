@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -31,5 +32,13 @@ namespace ElectronicsANC.Models
         [Required(ErrorMessage = "Mandatory field")]
         [StringLength(100, ErrorMessage = "String too long (max 100 characters")]
         public string Email { get; set; }
+        [NotMapped]
+        public string Name
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace ElectronicsANC.Controllers
     public class ShoppingCartController : Controller
     {
         private ShoppingCartRepository _shoppingCartRepository = new ShoppingCartRepository();
+        private ProductRepository _productRepository = new ProductRepository();
 
         // GET: ShoppingCart
         public ActionResult Index()
@@ -31,6 +32,13 @@ namespace ElectronicsANC.Controllers
         // GET: ShoppingCart/Create
         public ActionResult Create()
         {
+            var items = _productRepository.GetAllProducts();
+
+            if (items != null)
+            {
+                ViewBag.shoppingProducts = items;
+            }
+
             return View("CreateShoppingCart");
         }
 
@@ -40,7 +48,17 @@ namespace ElectronicsANC.Controllers
         {
             try
             {
-                ShoppingCartModel shoppingCartModel = new ShoppingCartModel();
+                ShoppingCartModel shoppingCartModel = new ShoppingCartModel();                
+                UpdateModel(shoppingCartModel);
+
+                if (User.Identity.IsAuthenticated)
+                    if (User.IsInRole("Admin"))
+                        if (shoppingCartModel.IdProduct == null)
+                            shoppingCartModel.IdProduct = Guid.Parse(Request.Form["ShoppingProducts"]);
+
+                if (shoppingCartModel.Quantity == 0)
+                    return View("CreateShoppingCart");
+
                 UpdateModel(shoppingCartModel);
 
                 _shoppingCartRepository.InsertShoppingCart(shoppingCartModel);

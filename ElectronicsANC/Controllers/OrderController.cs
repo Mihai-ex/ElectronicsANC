@@ -11,11 +11,18 @@ namespace ElectronicsANC.Controllers
     public class OrderController : Controller
     {
         private OrderRepository _orderRepository = new OrderRepository();
+        private ProductRepository _productRepository = new ProductRepository();
 
         // GET: Order
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
             List<OrderModel> orders = _orderRepository.GetAllOrders();
+
+            ViewBag.DateSortParam = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+            ViewBag.QuantitySortParam = sortOrder == "quantity" ? "quantity_desc" : "quantity";
+            ViewBag.PriceSortParam = sortOrder == "price" ? "price_desc" : "price";
+
+            orders = SortProducts(orders, sortOrder);
 
             return View("Index", orders);
         }
@@ -31,6 +38,13 @@ namespace ElectronicsANC.Controllers
         // GET: Order/Create
         public ActionResult Create()
         {
+            var items = _productRepository.GetAllProducts();
+
+            if (items != null)
+            {
+                ViewBag.shoppingProducts = items;
+            }
+
             return View("CreateOrder");
         }
 
@@ -41,6 +55,7 @@ namespace ElectronicsANC.Controllers
             try
             {
                 OrderModel orderModel = new OrderModel();
+                orderModel.IdProduct = Guid.Parse(Request.Form["OrderProducts"]);
                 UpdateModel(orderModel);
 
                 _orderRepository.InsertOrder(orderModel);
@@ -101,6 +116,25 @@ namespace ElectronicsANC.Controllers
             catch
             {
                 return View("DeleteOrder");
+            }
+        }
+
+        private List<OrderModel> SortProducts(List<OrderModel> temp, string sortOrder)
+        {
+            switch (sortOrder)
+            {
+                case "date_desc":
+                    return _orderRepository.OrderByDescendingParameter(temp, "Date");
+                case "price_desc":
+                    return _orderRepository.OrderByDescendingParameter(temp, "Price");
+                case "quantity_desc":
+                    return _orderRepository.OrderByDescendingParameter(temp, "Quantity");
+                case "price":
+                    return _orderRepository.OrderByAscendingParameter(temp, "Price");
+                case "warranty":
+                    return _orderRepository.OrderByAscendingParameter(temp, "Quantity");
+                default:
+                    return _orderRepository.OrderByAscendingParameter(temp, "Date");
             }
         }
     }

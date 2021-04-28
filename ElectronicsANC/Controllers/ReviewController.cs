@@ -2,8 +2,6 @@
 using ElectronicsANC.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ElectronicsANC.Controllers
@@ -11,7 +9,9 @@ namespace ElectronicsANC.Controllers
     public class ReviewController : Controller
     {
         private ReviewRepository _reviewRepository = new ReviewRepository();
-
+        private MemberRepository _memberRepository = new MemberRepository();
+        private ProductRepository _productRepository = new ProductRepository();
+        
         // GET: Review
         public ActionResult Index()
         {
@@ -31,6 +31,9 @@ namespace ElectronicsANC.Controllers
         // GET: Review/Create
         public ActionResult Create()
         {
+            SetViewbagMembers();
+            SetViewbagProducts();
+
             return View("CreateReview");
         }
 
@@ -41,6 +44,24 @@ namespace ElectronicsANC.Controllers
             try
             {
                 ReviewModel review = new ReviewModel();
+
+                //verifica daca viewbag-ul este gol cand vine request din Details de la ceva produs
+                //in caz ca e gol trebuie facut viewbag-ul din nou
+                if (Request.Form["Member"] == null)                
+                    SetViewbagMembers();
+
+                //trebuie NEAPARAT facut update la model aici ca sa se salveze idProdus adus din controller extern
+                UpdateModel(review);
+                //mai sus trebuie facut update model pentru ca, pentru ceva motiv, cand se executa linia de jos se sare direct la catch!
+                review.IdMember = Guid.Parse(Request.Form["Member"]);
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("Admin"))
+                        if(review.IdProduct == null)
+                            review.IdProduct = Guid.Parse(Request.Form["ProductsToReview"]);
+                }
+
                 UpdateModel(review);
 
                 _reviewRepository.InsertReview(review);
@@ -101,6 +122,26 @@ namespace ElectronicsANC.Controllers
             catch
             {
                 return View("DeleteReview");
+            }
+        }
+
+        private void SetViewbagProducts()
+        {
+            var items = _productRepository.GetAllProducts();
+
+            if (items != null)
+            {
+                ViewBag.products = items;
+            }
+        }
+
+        private void SetViewbagMembers()
+        {
+            var members = _memberRepository.GetAllMembers();
+
+            if (members != null)
+            {
+                ViewBag.members = members;
             }
         }
     }

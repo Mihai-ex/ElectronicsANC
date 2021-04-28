@@ -123,8 +123,9 @@ namespace ElectronicsANC.Repository
             {
                 dbShoppingCart.IdShoppingCart = shoppingCart.IdShoppingCart;
                 dbShoppingCart.IdProduct = shoppingCart.IdProduct;
-                dbShoppingCart.Price = shoppingCart.Price;
                 dbShoppingCart.Quantity = shoppingCart.Quantity;
+                var finalPrice = shoppingCart.Quantity * shoppingCart.Price;
+                dbShoppingCart.Price = finalPrice;
 
                 return dbShoppingCart;
             }

@@ -140,13 +140,6 @@ namespace ElectronicsANC.Repository
             return models;
         }
 
-        public void SaveFilter(List<ProductModel> models, string filter)
-        {
-            foreach (var model in models)
-                if (string.IsNullOrEmpty(model.Filter))
-                    model.Filter = filter;
-        }
-
         public void InsertProduct(ProductModel product)
         {
             product.IdProduct = Guid.NewGuid();

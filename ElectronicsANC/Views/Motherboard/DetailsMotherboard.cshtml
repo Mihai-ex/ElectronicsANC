@@ -62,8 +62,15 @@
     </dl>
 </div>
 <p>
-    <a class="btn btn-primary" href="@Url.Action("AddToCart", "Cart")">Add To Cart</a> |
-    <a class="btn btn-primary" href="@Url.Action("WriteReview", "Review")">Write Review</a>
-    @*<a class="btn btn-primary" href="@Html.ActionLink("Add to cart", "Cart", new { id = Model.IdProduct })">Add to Cart</a>*@ |
+    @using (Html.BeginForm("Create", "ShoppingCart"))
+    {
+        @Html.Hidden("IdProduct", Model.IdProduct)
+        @Html.Hidden("Price", Model.Price)
+        <input type="submit" value="Add To Cart" />
+    } |
+    @using (Html.BeginForm("Create", "Review"))
+    {
+        @Html.Hidden("IdProduct", Model.IdProduct) <input type="submit" value="Write Review" />
+    } |
     @Html.ActionLink("Back to List", "Index")
 </p>

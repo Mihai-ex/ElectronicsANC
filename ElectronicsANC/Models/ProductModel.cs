@@ -14,6 +14,7 @@ namespace ElectronicsANC.Models
         public Guid IdCategory { get; set; }
         [Required(ErrorMessage = "Mandatory field")]
         [StringLength(150, ErrorMessage = "String too long (max 150 characters)")]
+        [Display(Name = "Product Name")]
         public string ProductName { get; set; }
         [Required(ErrorMessage = "Mandatory field")]
         [StringLength(150, ErrorMessage = "String too long (max 150 characters)")]
@@ -27,7 +28,5 @@ namespace ElectronicsANC.Models
         public int Warranty { get; set; }
         [Range(0, 5)]
         public int? Rating { get; set; }
-        [NotMapped]
-        public string Filter { get; set; }
     }
 }

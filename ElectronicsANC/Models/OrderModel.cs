@@ -11,7 +11,8 @@ namespace ElectronicsANC.Models
         public Guid IdOrder { get; set; }
         public Guid IdProduct { get; set; }
         [Required(ErrorMessage = "Mandatory field")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:MM:SS}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd", ApplyFormatInEditMode = true)]
         public DateTime DateOrder { get; set; }
         [Required(ErrorMessage = "Mandatory field")]
         public int Quantity { get; set; }

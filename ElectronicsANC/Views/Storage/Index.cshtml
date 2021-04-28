@@ -8,27 +8,33 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @using(Html.BeginForm())
+    {
+        <p>
+            Filter by Manufacturer:@Html.TextBox("Filter")
+            <input type="submit" value="Filter" />
+        </p>
+    }
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ProductName)
+            @Html.ActionLink("Product Name", "Index", new { sortOrder = ViewBag.NameSortParam })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Manufacturer)
+            @Html.ActionLink("Manufacturer", "Index", new { sortOrder = ViewBag.ManufacturerSortParam })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.ActionLink("Price", "Index", new { sortOrder = ViewBag.PriceSortParam })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Warranty)
+            @Html.ActionLink("Warranty", "Index", new { sortOrder = ViewBag.WarrantySortParam })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rating)
+            @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParam })
         </th>
         <th></th>
     </tr>

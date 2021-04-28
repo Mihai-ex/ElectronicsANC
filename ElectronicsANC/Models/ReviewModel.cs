@@ -12,8 +12,11 @@ namespace ElectronicsANC.Models
         public Guid IdMember { get; set; }
         public Guid IdProduct { get; set; }
         [Required(ErrorMessage = "Mandatory field")]
+        [DataType(DataType.MultilineText)]
         public string ReviewDetails { get; set; }
         [Required(ErrorMessage = "Mandatory field")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString ="{0:yyyy-MM-dd", ApplyFormatInEditMode = true)]
         public DateTime ReviewDate { get; set; }
     }
 }

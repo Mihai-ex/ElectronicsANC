@@ -12,11 +12,11 @@
     @using(Html.BeginForm())
     {
         <p>
-            Search by:@Html.TextBox("Filter", null, new { @placeholder = "Manufacturer" } )            
+            Search by Manufacturer:@Html.TextBox("Filter", null, new { @placeholder = "Manufacturer" } )            
             <input type="submit" value="Search" />            
         </p>
         <p>
-            Search by:@Html.TextBox("Name", null, new { @placeholder = "Name" } )            
+            Search by Product Name:@Html.TextBox("Name", null, new { @placeholder = "Name" } )            
             <input type="submit" value="Search" />            
         </p>
     }

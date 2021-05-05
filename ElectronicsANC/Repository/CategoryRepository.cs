@@ -38,11 +38,31 @@ namespace ElectronicsANC.Repository
             return MapDbObjectToModel(category);
         }
 
-        public CategoryModel GetCategoryByName(string name)
+        public List<CategoryModel> GetCategoriesByName(string name)
         {
-            var category = dbContext.Categories.FirstOrDefault(x => x.CategoryName.Equals(name));
+            List<CategoryModel> categoryList = new List<CategoryModel>();
 
-            return MapDbObjectToModel(category);
+            foreach (Category dbCategory in dbContext.Categories)
+                if(dbCategory.CategoryName.Contains(name))
+                    AddDbObjectToModelCollection(categoryList, dbCategory);
+
+            return categoryList;
+        }
+
+        public List<CategoryModel> OrderByDescendingParam(List<CategoryModel> models, string parameter)
+        {
+            if (parameter == "Name")
+                return models.OrderByDescending(x => x.CategoryName).ToList();
+
+            return models;
+        }
+
+        public List<CategoryModel> OrderByAscendingParameter(List<CategoryModel> models, string parameter)
+        {
+            if (parameter == "Name")
+                return models.OrderBy(x => x.CategoryName).ToList();
+
+            return models;
         }
 
         public void InsertCategory(CategoryModel category)
@@ -53,7 +73,7 @@ namespace ElectronicsANC.Repository
             dbContext.SubmitChanges();
         }
 
-        public void UpdateMember(CategoryModel category)
+        public void UpdateCategory(CategoryModel category)
         {
             Category dbCategory = dbContext.Categories.FirstOrDefault(x => x.IdCategory == category.IdCategory);
 

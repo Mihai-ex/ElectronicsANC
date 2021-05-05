@@ -33,12 +33,6 @@ namespace ElectronicsANC.Models
         [StringLength(100, ErrorMessage = "String too long (max 100 characters")]
         public string Email { get; set; }
         [NotMapped]
-        public string Name
-        {
-            get
-            {
-                return FirstName + " " + LastName;
-            }
-        }
+        public string Name { get { return FirstName + " " + LastName; } }
     }
 }

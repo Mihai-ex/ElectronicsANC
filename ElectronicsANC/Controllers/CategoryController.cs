@@ -13,9 +13,14 @@ namespace ElectronicsANC.Controllers
         private CategoryRepository _categoryRepository = new CategoryRepository();
 
         // GET: Category
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string filter)
         {
             List<CategoryModel> categories = _categoryRepository.GetAllCategories();
+
+            ViewBag.NameSortParam = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            categories = FilterCategories(filter, ref categories);
+            categories = SortCategories(categories, sortOrder);
 
             return View("Index", categories);
         }
@@ -29,6 +34,7 @@ namespace ElectronicsANC.Controllers
         }
 
         // GET: Category/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View("CreateCategory");
@@ -55,6 +61,7 @@ namespace ElectronicsANC.Controllers
         }
 
         // GET: Category/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(Guid id)
         {
             CategoryModel categoryModel = _categoryRepository.GetCategoryById(id);
@@ -63,6 +70,7 @@ namespace ElectronicsANC.Controllers
         }
 
         // POST: Category/Edit/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Edit(Guid id, FormCollection collection)
         {
@@ -71,7 +79,7 @@ namespace ElectronicsANC.Controllers
                 CategoryModel categoryModel = new CategoryModel();
                 UpdateModel(categoryModel);
 
-                _categoryRepository.UpdateMember(categoryModel);
+                _categoryRepository.UpdateCategory(categoryModel);
 
                 return RedirectToAction("Index");
             }
@@ -82,6 +90,7 @@ namespace ElectronicsANC.Controllers
         }
 
         // GET: Category/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(Guid id)
         {
             CategoryModel categoryModel = _categoryRepository.GetCategoryById(id);
@@ -90,6 +99,7 @@ namespace ElectronicsANC.Controllers
         }
 
         // POST: Category/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Delete(Guid id, FormCollection collection)
         {
@@ -103,6 +113,24 @@ namespace ElectronicsANC.Controllers
             {
                 return View("DeleteCategory");
             }
+        }
+
+        private List<CategoryModel> FilterCategories(string filter, ref List<CategoryModel> categoryModels)
+        {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                categoryModels = _categoryRepository.GetCategoriesByName(filter);
+            }
+
+            return categoryModels;
+        }
+
+        private List<CategoryModel> SortCategories(List<CategoryModel> temp, string sortOrder)
+        {
+            if (sortOrder == "name_desc")
+                return _categoryRepository.OrderByDescendingParam(temp, "Name");
+            else
+                return _categoryRepository.OrderByAscendingParameter(temp, "Name");
         }
     }
 }

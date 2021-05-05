@@ -15,7 +15,7 @@ namespace ElectronicsANC.Models
         [DataType(DataType.MultilineText)]
         public string ReviewDetails { get; set; }
         [Required(ErrorMessage = "Mandatory field")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString ="{0:yyyy-MM-dd", ApplyFormatInEditMode = true)]
         public DateTime ReviewDate { get; set; }
     }

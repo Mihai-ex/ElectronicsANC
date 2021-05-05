@@ -49,24 +49,6 @@ namespace ElectronicsANC.Repository
             return MapDbObjectToModel(product);
         }
 
-        public ProductModel GetProductByCategoryId(Guid id)
-        {
-            var product = dbContext.Products.FirstOrDefault(x => x.IdCategory == id);
-
-            return MapDbObjectToModel(product);
-        }
-
-        //public List<ProductModel> GetProductsByName(string name)
-        //{
-        //    List<ProductModel> productList = new List<ProductModel>();
-
-        //    foreach (Product dbProduct in dbContext.Products)
-        //        if(dbProduct.ProductName.Equals(name))
-        //            AddDbObjectToModelCollection(productList, dbProduct);
-
-        //    return productList;
-        //}
-
         public List<ProductModel> GetProductsByManufacturer(string manufacturer)
         {
             List<ProductModel> produstList = new List<ProductModel>();
@@ -78,29 +60,29 @@ namespace ElectronicsANC.Repository
             return produstList;
         }
 
-        public List<ProductModel> GetProductsByPrice(decimal price)
+        public List<ProductModel> GetProductsByManufacturer(string manufacturer, Guid id)
         {
-            List<ProductModel> productList = new List<ProductModel>();
+            List<ProductModel> produstList = new List<ProductModel>();
 
             foreach (Product dbProduct in dbContext.Products)
-                if (dbProduct.Price == price)
-                    AddDbObjectToModelCollection(productList, dbProduct);
+                if (dbProduct.Manufacturer.Equals(manufacturer) && dbProduct.IdCategory.Equals(id))
+                    AddDbObjectToModelCollection(produstList, dbProduct);
 
-            return productList;
+            return produstList;
         }
 
-        public List<ProductModel> GetProductsByRating(int rating)
+        public List<ProductModel> GetProductsByNameWithCategoryID(string name, Guid id)
         {
-            List<ProductModel> productList = new List<ProductModel>();
+            List<ProductModel> produstList = new List<ProductModel>();
 
             foreach (Product dbProduct in dbContext.Products)
-                if (dbProduct.Rating == rating)
-                    AddDbObjectToModelCollection(productList, dbProduct);
+                if (dbProduct.ProductName.Contains(name) && dbProduct.IdCategory.Equals(id))
+                    AddDbObjectToModelCollection(produstList, dbProduct);
 
-            return productList;
+            return produstList;
         }
 
-        public List<ProductModel> OrderByDescendingParameterWithID(List<ProductModel> models, string parameter, Guid id)
+        public List<ProductModel> OrderByDescendingParameter(List<ProductModel> models, string parameter)
         {
             if(parameter == "Name")            
                 return models.OrderByDescending(x => x.ProductName).ToList();
@@ -120,7 +102,7 @@ namespace ElectronicsANC.Repository
             return models;
         }
 
-        public List<ProductModel> OrderByAscendingParameterWithID(List<ProductModel> models, string parameter, Guid id)
+        public List<ProductModel> OrderByAscendingParameter(List<ProductModel> models, string parameter)
         {
             if (parameter == "Name")
                 return models.OrderBy(x => x.ProductName).ToList();

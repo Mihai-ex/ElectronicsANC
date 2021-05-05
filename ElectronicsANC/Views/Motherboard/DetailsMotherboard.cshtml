@@ -5,10 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DetailsMotherboard</h2>
+<h2>Motherboard Details</h2>
 
 <div>
-    <h4>ProductModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -64,13 +63,19 @@
 <p>
     @using (Html.BeginForm("Create", "ShoppingCart"))
     {
-        @Html.Hidden("IdProduct", Model.IdProduct)
-        @Html.Hidden("Price", Model.Price)
-        <input type="submit" value="Add To Cart" />
+        if (User.Identity.IsAuthenticated)
+        {
+            @Html.Hidden("IdProduct", Model.IdProduct)
+            @Html.Hidden("Price", Model.Price)
+            <input type="submit" value="Add To Cart" />
+        }
     } |
     @using (Html.BeginForm("Create", "Review"))
     {
-        @Html.Hidden("IdProduct", Model.IdProduct) <input type="submit" value="Write Review" />
+        if (User.Identity.IsAuthenticated)
+        {
+            @Html.Hidden("IdProduct", Model.IdProduct) <input type="submit" value="Write Review" />
+        }
     } |
     @Html.ActionLink("Back to List", "Index")
 </p>

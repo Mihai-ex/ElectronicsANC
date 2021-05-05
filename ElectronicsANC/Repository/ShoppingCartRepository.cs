@@ -60,6 +60,28 @@ namespace ElectronicsANC.Repository
             return shoppingCartList;
         }
 
+        public List<ShoppingCartModel> OrderByDescendingParameter(List<ShoppingCartModel> models, string parameter)
+        {
+            if (parameter == "Quantity")
+                return models.OrderByDescending(x => x.Quantity).ToList();
+
+            if (parameter == "Price")
+                return models.OrderByDescending(x => x.Price).ToList();
+
+            return models;
+        }
+
+        public List<ShoppingCartModel> OrderByAscendingParameter(List<ShoppingCartModel> models, string parameter)
+        {
+            if (parameter == "Quantity")
+                return models.OrderBy(x => x.Quantity).ToList();
+
+            if (parameter == "Price")
+                return models.OrderBy(x => x.Price).ToList();
+
+            return models;
+        }
+
         public void InsertShoppingCart(ShoppingCartModel shoppingCart)
         {
             shoppingCart.IdShoppingCart = Guid.NewGuid();

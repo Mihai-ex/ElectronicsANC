@@ -38,15 +38,26 @@ namespace ElectronicsANC.Repository
             return MapDbObjectToModel(review);
         }
 
-        public List<ReviewModel> GetReviewsByDate(DateTime dateTime)
+        public List<ReviewModel> OrderByDescendingParameter(List<ReviewModel> models, string parameter)
         {
-            List<ReviewModel> reviewList = new List<ReviewModel>();
+            if (parameter == "Details")
+                return models.OrderByDescending(x => x.ReviewDetails).ToList();
 
-            foreach (Review dbReview in dbContext.Reviews)
-                if (dbReview.ReviewDate == dateTime)
-                    AddDbObjectToModelCollection(reviewList, dbReview);
+            if (parameter == "Date")
+                return models.OrderByDescending(x => x.ReviewDate).ToList();
 
-            return reviewList;
+            return models;
+        }
+
+        public List<ReviewModel> OrderByAscendingParameter(List<ReviewModel> models, string parameter)
+        {
+            if (parameter == "Details")
+                return models.OrderBy(x => x.ReviewDetails).ToList();
+
+            if (parameter == "Date")
+                return models.OrderBy(x => x.ReviewDate).ToList();
+
+            return models;
         }
 
         public void InsertReview(ReviewModel review)

@@ -13,9 +13,14 @@ namespace ElectronicsANC.Controllers
         private ProductRepository _productRepository = new ProductRepository();
         
         // GET: Review
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
             List<ReviewModel> reviews = _reviewRepository.GetAllReviews();
+
+            ViewBag.ReviewSortParam = string.IsNullOrEmpty(sortOrder) ? "review_desc" : "";
+            ViewBag.DateSortParam = sortOrder == "reviewdate" ? "date_desc" : "date";
+
+            reviews = SortReviews(reviews, sortOrder);
 
             return View("Index", reviews);
         }
@@ -58,7 +63,7 @@ namespace ElectronicsANC.Controllers
                 if (User.Identity.IsAuthenticated)
                 {
                     if (User.IsInRole("Admin"))
-                        if(review.IdProduct == null)
+                        if(review.IdProduct == Guid.Empty)
                             review.IdProduct = Guid.Parse(Request.Form["ProductsToReview"]);
                 }
 
@@ -66,7 +71,11 @@ namespace ElectronicsANC.Controllers
 
                 _reviewRepository.InsertReview(review);
 
-                return RedirectToAction("Index");
+                if (User.Identity.IsAuthenticated)
+                    if (User.IsInRole("Admin"))
+                        return RedirectToAction("Index");
+
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
@@ -142,6 +151,21 @@ namespace ElectronicsANC.Controllers
             if (members != null)
             {
                 ViewBag.members = members;
+            }
+        }
+
+        private List<ReviewModel> SortReviews(List<ReviewModel> temp, string sortOrder)
+        {
+            switch (sortOrder)
+            {
+                case "review_desc":
+                    return _reviewRepository.OrderByDescendingParameter(temp, "Details");
+                case "date_desc":
+                    return _reviewRepository.OrderByDescendingParameter(temp, "Date");
+                case "date":
+                    return _reviewRepository.OrderByAscendingParameter(temp, "Date");
+                default:
+                    return _reviewRepository.OrderByAscendingParameter(temp, "Details");
             }
         }
     }

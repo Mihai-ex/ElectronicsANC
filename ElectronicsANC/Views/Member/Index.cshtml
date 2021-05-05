@@ -10,28 +10,50 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    @using(Html.BeginForm())
+    {
+        <p>
+            Search by:@Html.TextBox("FirstName", null, new { @placeholder = "FirstName" } )            
+            <input type="submit" value="Search" />            
+        </p>
+        <p>
+            Search by:@Html.TextBox("LastName", null, new { @placeholder = "LastName" } )            
+            <input type="submit" value="Search" />            
+        </p>
+        <p>
+            Search by:@Html.TextBox("City", null, new { @placeholder = "City" } )            
+            <input type="submit" value="Search" />            
+        </p>
+        <p>
+            Search by:@Html.TextBox("Country", null, new { @placeholder = "Country" } )            
+            <input type="submit" value="Search" />            
+        </p>
+    }
+</p>
+
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.IdMember)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParam })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastNameSortParam })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParam })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.City)
+            @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.CitySortParam })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Country)
+            @Html.ActionLink("Country", "Index", new { sortOrder = ViewBag.CountrySortParam })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PostalCode)
+            @Html.ActionLink("Postal Code", "Index", new { sortOrder = ViewBag.PostalCodeSortParam })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Phone)

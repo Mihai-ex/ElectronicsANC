@@ -38,6 +38,28 @@ namespace ElectronicsANC.Repository
             return MapDbObjectToModel(member);
         }
 
+        public List<MemberModel> GetMembersByFirstName(string firstName)
+        {
+            List<MemberModel> memberList = new List<MemberModel>();
+
+            foreach (Member dbMbember in dbContext.Members)
+                if (dbMbember.FirstName.Equals(firstName))
+                    AddDbObjectToModelCollection(memberList, dbMbember);
+
+            return memberList;
+        }
+
+        public List<MemberModel> GetMembersByLastName(string lastName)
+        {
+            List<MemberModel> memberList = new List<MemberModel>();
+
+            foreach (Member dbMbember in dbContext.Members)
+                if (dbMbember.LastName.Equals(lastName))
+                    AddDbObjectToModelCollection(memberList, dbMbember);
+
+            return memberList;
+        }
+
         public List<MemberModel> GetMembersByCity(string city)
         {
             List<MemberModel> memberList = new List<MemberModel>();
@@ -49,18 +71,61 @@ namespace ElectronicsANC.Repository
             return memberList;
         }
 
-        public MemberModel GetMemberByPhone(string phone)
+        public List<MemberModel> GetMembersByCountry(string country)
         {
-            var member = dbContext.Members.FirstOrDefault(x => x.Phone.Equals(phone));
+            List<MemberModel> memberList = new List<MemberModel>();
 
-            return MapDbObjectToModel(member);
+            foreach (Member dbMbember in dbContext.Members)
+                if (dbMbember.Country.Equals(country))
+                    AddDbObjectToModelCollection(memberList, dbMbember);
+
+            return memberList;
         }
 
-        public MemberModel GetMemberByEmail(string email)
+        public List<MemberModel> OrderByDescendingParameter(List<MemberModel> members, string parameter)
         {
-            var member = dbContext.Members.FirstOrDefault(x => x.Email.Equals(email));
+            if (parameter == "FirstName")
+                return members.OrderByDescending(x => x.FirstName).ToList();
 
-            return MapDbObjectToModel(member);
+            if (parameter == "LastName")
+                return members.OrderByDescending(x => x.LastName).ToList();
+
+            if (parameter == "Address")
+                return members.OrderByDescending(x => x.Address).ToList();
+
+            if (parameter == "City")
+                return members.OrderByDescending(x => x.City).ToList();
+
+            if (parameter == "Country")
+                return members.OrderByDescending(x => x.Country).ToList();
+
+            if (parameter == "PostalCode")
+                return members.OrderByDescending(x => x.PostalCode).ToList();
+
+            return members;
+        }
+
+        public List<MemberModel> OrderByAscendingParameter(List<MemberModel> members, string parameter)
+        {
+            if (parameter == "FirstName")
+                return members.OrderBy(x => x.FirstName).ToList();
+
+            if (parameter == "LastName")
+                return members.OrderBy(x => x.LastName).ToList();
+
+            if (parameter == "Address")
+                return members.OrderBy(x => x.Address).ToList();
+
+            if (parameter == "City")
+                return members.OrderBy(x => x.City).ToList();
+
+            if (parameter == "Country")
+                return members.OrderBy(x => x.Country).ToList();
+
+            if (parameter == "PostalCode")
+                return members.OrderBy(x => x.PostalCode).ToList();
+
+            return members;
         }
 
         public void InsertMember(MemberModel member)

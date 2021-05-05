@@ -14,9 +14,14 @@ namespace ElectronicsANC.Controllers
         private ProductRepository _productRepository = new ProductRepository();
 
         // GET: ShoppingCart
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
             List<ShoppingCartModel> shoppingCarts = _shoppingCartRepository.GetAllShoppingCarts();
+
+            ViewBag.NameSortParam = string.IsNullOrEmpty(sortOrder) ? "quantity_desc" : "";
+            ViewBag.PriceSortParam = sortOrder == "price" ? "price_desc" : "price";
+
+            shoppingCarts = SortCarts(shoppingCarts, sortOrder);
 
             return View("Index", shoppingCarts);
         }
@@ -62,8 +67,12 @@ namespace ElectronicsANC.Controllers
                 UpdateModel(shoppingCartModel);
 
                 _shoppingCartRepository.InsertShoppingCart(shoppingCartModel);
+                
+                if(User.Identity.IsAuthenticated)
+                    if(User.IsInRole("Admin"))
+                        return RedirectToAction("Index");
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
@@ -119,6 +128,21 @@ namespace ElectronicsANC.Controllers
             catch
             {
                 return View("DeleteShoppingCart");
+            }
+        }
+
+        private List<ShoppingCartModel> SortCarts(List<ShoppingCartModel> temp, string sortOrder)
+        {
+            switch (sortOrder)
+            {
+                case "quantity_desc":
+                    return _shoppingCartRepository.OrderByDescendingParameter(temp, "Quantity");
+                case "price_desc":
+                    return _shoppingCartRepository.OrderByDescendingParameter(temp, "Price");
+                case "price":
+                    return _shoppingCartRepository.OrderByAscendingParameter(temp, "Price");
+                default:
+                    return _shoppingCartRepository.OrderByAscendingParameter(temp, "Quantity");
             }
         }
     }

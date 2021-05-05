@@ -19,10 +19,10 @@
             @Html.DisplayNameFor(model => model.IdProduct)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.ActionLink("Quantity", "Index", new { sortOrder = ViewBag.QuantitySortParam })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.ActionLink("Price", "Index", new { sortOrder = ViewBag.PriceSortParam })
         </th>
         <th></th>
     </tr>

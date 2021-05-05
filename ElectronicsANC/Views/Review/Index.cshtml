@@ -22,10 +22,10 @@
             @Html.DisplayNameFor(model => model.IdProduct)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReviewDetails)
+            @Html.ActionLink("Review Details", "Index", new { sortOrder = ViewBag.ReviewSortParam })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReviewDate)
+            @Html.ActionLink("Review Date", "Index", new { sortOrder = ViewBag.DateSortParam })
         </th>
         <th></th>
     </tr>

@@ -10,13 +10,22 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    @using(Html.BeginForm())
+    {
+        <p>
+            Search by:@Html.TextBox("Filter", null, new { @placeholder = "Name" } )            
+            <input type="submit" value="Search" />            
+        </p>
+    }
+</p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.IdCategory)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
+            @Html.ActionLink("Category Name", "Index", new { sortOrder = ViewBag.NameSortParam })
         </th>
         <th></th>
     </tr>

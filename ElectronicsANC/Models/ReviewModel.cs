@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -18,5 +19,9 @@ namespace ElectronicsANC.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString ="{0:yyyy-MM-dd", ApplyFormatInEditMode = true)]
         public DateTime ReviewDate { get; set; }
+        [NotMapped]
+        public string MemberName { get; set; }
+        [NotMapped]
+        public string ProductName { get; set; }
     }
 }

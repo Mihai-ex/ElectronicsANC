@@ -28,5 +28,7 @@ namespace ElectronicsANC.Models
         public int Warranty { get; set; }
         [Range(0, 5)]
         public int? Rating { get; set; }
+        [NotMapped]
+        public string CategoryName { get; set; }
     }
 }

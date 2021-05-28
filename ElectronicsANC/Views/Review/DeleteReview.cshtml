@@ -48,7 +48,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ReviewDate)
+            <span>@Convert.ToDateTime(Model.ReviewDate).ToString("dd-MM-yyyy")</span>
         </dd>
 
     </dl>

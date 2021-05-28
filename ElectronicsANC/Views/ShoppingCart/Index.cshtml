@@ -5,16 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Shopping Cart Index</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.IdShoppingCart)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.IdProduct)
         </th>
@@ -29,11 +29,11 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.IdShoppingCart)
-        </td>
+        </td>*@
         <td>
-            @Html.DisplayFor(modelItem => item.IdProduct)
+            @Html.DisplayFor(modelItem => item.ProductName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Quantity)

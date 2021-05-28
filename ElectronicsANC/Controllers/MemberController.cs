@@ -99,7 +99,7 @@ namespace ElectronicsANC.Controllers
         {
             try
             {
-                MemberModel memberModel = new MemberModel();
+                MemberModel memberModel = _memberRepository.GetMemberById(id);
                 UpdateModel(memberModel);
 
                 _memberRepository.UpdateMember(memberModel);

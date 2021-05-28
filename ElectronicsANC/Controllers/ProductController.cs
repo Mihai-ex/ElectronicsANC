@@ -27,6 +27,12 @@ namespace ElectronicsANC.Controllers
             products = FilterProducts(filter, ref products);
             products = SortProducts(products, sortOrder);
 
+            foreach (var prod in products)
+            {
+                var cat = _categoryRepository.GetCategoryById(prod.IdCategory);
+                prod.CategoryName = cat.CategoryName;
+            }
+
             return View("Index", products);
         }
 
@@ -45,7 +51,7 @@ namespace ElectronicsANC.Controllers
             var items = _categoryRepository.GetAllCategories();
             if (items != null)
             {
-                ViewBag.data = items;
+                ViewBag.category = items;
             }
 
             return View("CreateProduct");
@@ -59,7 +65,12 @@ namespace ElectronicsANC.Controllers
             try
             {
                 ProductModel productModel = new ProductModel();
-                productModel.IdCategory =  Guid.Parse(Request.Form["Category"]);
+                productModel.IdCategory = Guid.Parse(Request.Form["Category"]);
+                var items = _categoryRepository.GetAllCategories();
+                if (items != null)
+                {
+                    ViewBag.category = items;
+                }
                 UpdateModel(productModel);
 
                 _productRepository.InsertProduct(productModel);
@@ -88,7 +99,7 @@ namespace ElectronicsANC.Controllers
         {
             try
             {
-                ProductModel productModel = new ProductModel();
+                ProductModel productModel = _productRepository.GetProdctById(id);
                 UpdateModel(productModel);
 
                 _productRepository.UpdateProduct(productModel);

@@ -82,7 +82,7 @@ namespace ElectronicsANC.Controllers
         {
             try
             {
-                OrderModel orderModel = new OrderModel();
+                OrderModel orderModel = _orderRepository.GetOrderById(id);
                 UpdateModel(orderModel);
 
                 _orderRepository.UpdateOrder(orderModel);

@@ -22,6 +22,14 @@ namespace ElectronicsANC.Controllers
 
             reviews = SortReviews(reviews, sortOrder);
 
+            foreach(var review in reviews)
+            {
+                var member = _memberRepository.GetMemberById(review.IdMember);
+                var product = _productRepository.GetProdctById(review.IdProduct);
+                review.MemberName = member.Name;
+                review.ProductName = product.ProductName;
+            }
+
             return View("Index", reviews);
         }
 
@@ -97,7 +105,7 @@ namespace ElectronicsANC.Controllers
         {
             try
             {
-                ReviewModel review = new ReviewModel();
+                ReviewModel review = _reviewRepository.GetReviewById(id);
                 UpdateModel(review);
 
                 _reviewRepository.UpdateReview(review);

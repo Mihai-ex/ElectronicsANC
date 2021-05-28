@@ -18,16 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IdCategory, "Category Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-
-
-                @Html.DropDownList("Category", new SelectList(ViewBag.data, "IdCategory", "CategoryName"))
-
-                @*@Html.DropDownList("Category", new List<SelectListItem>
-                    {
-                        new SelectListItem{Text = "Motherboard", Value = "c9ff7c9f-21bd-44f9-a188-b391cbf9d35a", Selected = true },
-                        new SelectListItem{Text = "RAM", Value = "bdcdfa08-7874-4140-b619-829657393dbd"}
-                    }, "Select Category"
-               )*@
+                @Html.DropDownList("Category", new SelectList(ViewBag.category, "IdCategory", "CategoryName"))
             </div>
         </div>
 

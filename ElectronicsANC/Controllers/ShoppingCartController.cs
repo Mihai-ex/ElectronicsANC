@@ -23,6 +23,12 @@ namespace ElectronicsANC.Controllers
 
             shoppingCarts = SortCarts(shoppingCarts, sortOrder);
 
+            foreach(var cart in shoppingCarts)
+            {
+                var product = _productRepository.GetProdctById(cart.IdProduct);
+                cart.ProductName = product.ProductName;
+            }
+
             return View("Index", shoppingCarts);
         }
 
@@ -94,7 +100,7 @@ namespace ElectronicsANC.Controllers
         {
             try
             {
-                ShoppingCartModel shoppingCartModel = new ShoppingCartModel();
+                ShoppingCartModel shoppingCartModel = _shoppingCartRepository.GetShoppingCartById(id);
                 UpdateModel(shoppingCartModel);
 
                 _shoppingCartRepository.UpdateShoppingCart(shoppingCartModel);

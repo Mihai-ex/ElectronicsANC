@@ -21,9 +21,9 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.IdCategory)
-        </th>
+        </th>*@
         <th>
             @Html.ActionLink("Category Name", "Index", new { sortOrder = ViewBag.NameSortParam })
         </th>
@@ -32,9 +32,9 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.IdCategory)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.CategoryName)
         </td>

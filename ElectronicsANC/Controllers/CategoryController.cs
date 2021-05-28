@@ -76,7 +76,7 @@ namespace ElectronicsANC.Controllers
         {
             try
             {
-                CategoryModel categoryModel = new CategoryModel();
+                CategoryModel categoryModel = _categoryRepository.GetCategoryById(id);
                 UpdateModel(categoryModel);
 
                 _categoryRepository.UpdateCategory(categoryModel);

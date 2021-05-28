@@ -67,7 +67,7 @@ namespace ElectronicsANC.Controllers
         {
             try
             {
-                CartModel cartModel = new CartModel();
+                CartModel cartModel = _cartRepository.GetCartById(id);
                 UpdateModel(cartModel);
 
                 _cartRepository.UpdateCart(cartModel);

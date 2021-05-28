@@ -31,7 +31,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateOrder)
+            <span>@Convert.ToDateTime(Model.DateOrder).ToString("dd-MM-yyyy")</span>
         </dd>
 
         <dt>
